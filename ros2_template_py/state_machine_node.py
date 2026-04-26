@@ -12,6 +12,29 @@ from transitions import Machine
 
 
 class StateMachineNode(Node):
+    """Nav2 連携ステートマシンノード。
+
+    インターフェース一覧
+    --------------------
+    Publisher
+        /state_output (std_msgs/String)
+            ros2 topic echo /state_output
+
+    Service
+        ~/next  (std_srvs/Trigger)  -- 次のステートへ進む
+            ros2 service call /state_machine_node/next std_srvs/srv/Trigger "{}"
+        ~/reset (std_srvs/Trigger)  -- INIT へリセット
+            ros2 service call /state_machine_node/reset std_srvs/srv/Trigger "{}"
+
+    Parameter
+        target_state (string) -- 指定ステートへ直接遷移する
+            ros2 param set /state_machine_node target_state MOVE
+            指定可能値: INIT | MOVE | MODE1 | MODE2 | RETURN
+
+    Action Client
+        /navigate_to_pose (nav2_msgs/NavigateToPose)
+            MODE2 進入時に自動送信
+    """
 
     _states = ['INIT', 'MOVE', 'MODE1', 'MODE2', 'RETURN']
     _transitions = [
@@ -202,8 +225,8 @@ class StateMachineNode(Node):
         response: Trigger.Response,
     ) -> Trigger.Response:
         prev = self.state
-        if self.can_next():
-            self.next()
+        self.next()
+        if self.state != prev:
             response.success = True
             response.message = f'{prev} -> {self.state}'
         else:
