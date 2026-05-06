@@ -33,6 +33,7 @@ setup(
             'lifecycle_publisher = ros2_template_py.lifecycle_publisher:main',
             'lifecycle_subscriber = ros2_template_py.lifecycle_subscriber:main',
             'state_machine_node = ros2_template_py.state_machine_node:main',
+            'multi_executor_demo = ros2_template_py.multi_executor_demo:main',
         ],
     },
 )
