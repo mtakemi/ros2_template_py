@@ -13,6 +13,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch',
             glob('launch/*.launch.py')),
+        ('share/' + package_name + '/config',
+            glob('config/*.yaml')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -35,6 +37,7 @@ setup(
             'state_machine_node = ros2_template_py.state_machine_node:main',
             'sm_example_node = ros2_template_py.sm_example_node:main',
             'multi_executor_demo = ros2_template_py.multi_executor_demo:main',
+            'argument_vs_parameter_demo = ros2_template_py.argument_vs_parameter_demo:main',
         ],
     },
 )

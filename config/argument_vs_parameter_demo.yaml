@@ -1,0 +1,39 @@
+# argument_vs_parameter_demo.yaml
+#
+# ROS2 Node Parameter を YAML ファイルで設定する例
+#
+# フォーマット:
+#   <ノード名>:
+#     ros__parameters:
+#       <パラメータ名>: <値>
+#
+# 使用方法:
+#   # CLIから直接渡す場合
+#   ros2 run ros2_template_py argument_vs_parameter_demo \
+#     --ros-args --params-file config/argument_vs_parameter_demo.yaml
+#
+#   # launchファイル経由で渡す場合 (デフォルトでこのファイルが使われる)
+#   ros2 launch ros2_template_py argument_vs_parameter_demo.launch.py
+#
+#   # launchファイルにファイルパスを明示する場合
+#   ros2 launch ros2_template_py argument_vs_parameter_demo.launch.py \
+#     config_file:=/path/to/your/custom_config.yaml
+#
+# ポイント:
+#   - YAML ファイルによる設定は "Node Parameter" の設定方法の一つ
+#   - Launch Argument とは異なり、このファイルの値はノードコードから参照できる
+#   - ノード名が一致しないと値が読み込まれないので注意
+#
+argument_vs_parameter_demo:
+  ros__parameters:
+    # 挨拶のプレフィックス
+    greeting: "Hello"
+
+    # 挨拶の宛先
+    target_name: "World"
+
+    # パブリッシュ周期 [秒]
+    publish_rate: 1.0
+
+    # 追加設定ファイルパス (空文字で無効)
+    config_file_path: ""
